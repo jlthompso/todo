@@ -19,3 +19,8 @@ firebase.initializeApp(firebaseConfig);
 let database = firebase.database();
 
 import {taskFactory} from './task';
+
+const addButton = document.querySelector('#add');
+addButton.addEventListener('click', function() {
+    console.log("Add task");
+});

@@ -4,10 +4,17 @@
 
 .swimlane {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 20rem;
+    margin: 0 1px;
+    border-radius: 1rem;
+}
+
+.heading {
     text-align: center;
     font-weight: bolder;
     font-size: 1.5rem;
-    border-radius: 0.5rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -20,5 +27,17 @@
 }
 
 #closed {
-background-color: #E6D4FF;
+    background-color: #E6D4FF;
+}
+
+.flexItem {
+    margin: 3px;
+    background-color: F5EDFF;
+    border-radius: 0.25rem;
+    border-style: dashed;
+    border-color:#9682B3;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
