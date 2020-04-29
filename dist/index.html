@@ -22,11 +22,11 @@
         <div class="form-popup" id="myForm">
             <form action="/action_page.php" class="form-container">
                 <h1>New Task</h1>
-                <label for="formDescriptiom"><b>Description</b></label>
-                <input type="text" placeholder="Enter Task Name" name="formDescription" required>
+                <label for="formName"><b>Summary</b></label>
+                <input type="text" placeholder="Enter task name" name="formName" required>
 
-                <label for="formDueDate"><b>Due Date:</b></label>
-                <input type="date" name="formDueDate" required>
+                <label for="formDate"><b>Due Date:</b></label>
+                <input type="date" name="formDate" required>
                 <br>
 
                 <label for="formPriority"><b>Priority:</b></label>
@@ -39,9 +39,9 @@
                 </select>
                 <br>
 
-                <label for="formNotes"><b>Notes</b></label>
+                <label for="formNotes"><b>Description</b></label>
                 <br>
-                <textarea id="formNotes" placeholder="Optional"></textarea>
+                <textarea id="formNotes" placeholder="Optional notes..."></textarea>
           
                 <button type="submit" class="btn">CREATE</button>
                 <button type="submit" class="btn cancel" id="cancel">CANCEL</button>
