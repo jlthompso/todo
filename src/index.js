@@ -22,5 +22,18 @@ import {taskFactory} from './task';
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', function() {
-    console.log("Add task");
+    openForm();
 });
+
+const cancelButton = document.querySelector('#cancel');
+cancelButton.addEventListener('click', function() {
+    closeForm();
+});
+
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
+  
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+} 

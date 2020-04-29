@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #container {
     display: flex;
 }
@@ -15,7 +20,6 @@
     text-align: center;
     font-weight: bolder;
     font-size: 1.5rem;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 #backlog {
@@ -30,14 +34,23 @@
     background-color: #E6D4FF;
 }
 
-.flexItem {
+button {
     margin: 3px;
-    background-color: F5EDFF;
+    background-color: #F5EDFF;
     border-radius: 0.25rem;
     border-style: dashed;
     border-color:#9682B3;
     height: 50px;
     font-size: 1.5rem;
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+::-moz-focus-inner {
+    border:0;
 }
