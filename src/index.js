@@ -19,6 +19,7 @@ firebase.initializeApp(firebaseConfig);
 let database = firebase.database();
 
 import {taskFactory} from './task';
+import {openForm, closeForm} from './form';
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', function() {
@@ -29,11 +30,3 @@ const cancelButton = document.querySelector('#cancel');
 cancelButton.addEventListener('click', function() {
     closeForm();
 });
-
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
-}
-  
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-} 

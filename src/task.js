@@ -1,5 +1,4 @@
-const taskFactory = (title, description, dueDate, priority) => {
-    return {title, description, dueDate, priority};
+export const taskFactory = (title, description, dueDate, priority) => {
+    let status = "open";
+    return {title, description, dueDate, priority, status};
 }
-
-export {taskFactory};

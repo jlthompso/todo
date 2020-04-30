@@ -19,14 +19,14 @@
                 <div class="heading">DONE</div>
             </div>
         </div>
-        <div class="form-popup" id="myForm">
-            <form action="/action_page.php" class="form-container">
+        <div id="formPopup">
+            <form id="newTaskForm">
                 <h1>New Task</h1>
                 <label for="formName"><b>Summary</b></label>
                 <input type="text" placeholder="Enter task name" name="formName" required>
 
                 <label for="formDate"><b>Due Date:</b></label>
-                <input type="date" name="formDate" required>
+                <input type="date" name="formDate">
                 <br>
 
                 <label for="formPriority"><b>Priority:</b></label>
@@ -43,8 +43,8 @@
                 <br>
                 <textarea id="formNotes" placeholder="Optional notes..."></textarea>
           
-                <button type="submit" class="btn">CREATE</button>
-                <button type="submit" class="btn cancel" id="cancel">CANCEL</button>
+                <button type="submit" id="create">CREATE</button>
+                <button type="reset" id="cancel">CANCEL</button>
             </form>
         </div>
         <script src="./scripts/main.js"></script>

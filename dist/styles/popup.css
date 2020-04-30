@@ -1,5 +1,5 @@
 /* The popup form - hidden by default */
-.form-popup {
+#formPopup {
   display: none;
   position: fixed;
   top: 10%;
@@ -9,14 +9,14 @@
 }
 
 /* Add styles to the form container */
-.form-container {
+#newTaskForm {
   max-width: 500px;
   padding: 10px;
   background-color: white;
 }
 
 /* Full-width input fields */
-.form-container input[type=text], #formNotes {
+#newTaskForm input[type=text], #formNotes {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -25,7 +25,7 @@
   font-size: 1rem;
 }
 
-.form-container input[type=date], #formPriority {
+#newTaskForm input[type=date], #formPriority {
     padding: 5px;
     margin: 5px 0 22px 0;
     border: none;
@@ -34,16 +34,15 @@
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=text]:focus, #formNotes:focus {
+#newTaskForm input[type=text]:focus, #formNotes:focus {
   background-color: #ddd;
   outline: none;
 }
 
 /* Set a style for the submit/login button */
-.form-container .btn {
+#create, #cancel {
   background-color: #4CAF50;
   color: white;
-  padding: 16px 20px;
   border: none;
   cursor: pointer;
   width: 100%;
@@ -52,11 +51,11 @@
 }
 
 /* Add a red background color to the cancel button */
-.form-container .cancel {
+#cancel {
   background-color: red;
 }
 
 /* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
+#create:hover, #cancel:hover {
   opacity: 1;
-} 
+}
