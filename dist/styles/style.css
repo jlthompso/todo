@@ -14,12 +14,14 @@
     min-height: 20rem;
     margin: 0 1px;
     border-radius: 1rem;
+    padding: 0 3px 50px;
 }
 
 .heading {
     text-align: center;
     font-weight: bolder;
     font-size: 1.5rem;
+    margin: 10px;
 }
 
 #backlog {
@@ -34,23 +36,44 @@
     background-color: #E6D4FF;
 }
 
-button {
-    margin: 3px;
-    background-color: #F5EDFF;
-    border-radius: 0.25rem;
+#add {
     border-style: dashed;
-    border-color:#9682B3;
     height: 50px;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
+}
+
+.flexItem {
+    margin: 1.5px 0;
+    background-color: #F5EDFF;
+    border-radius: 0.25rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color:#9682B3;
+    position: relative; /* Allows absolute positioning of child elements */
+    padding: 3px;
     opacity: 0.8;
 }
 
-button:hover {
+.flexItem .taskPriority {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    height: 20px;
+}
+
+.flexItem .taskDueDate {
+    text-align: right;
+    padding-right: 25px;
+    height: 20px;
+}
+
+.flexItem:hover {
     opacity: 1;
 }
 
+/* Remove inner focus rectangle when button is clicked */
 ::-moz-focus-inner {
     border:0;
 }
