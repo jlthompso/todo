@@ -1,9 +1,7 @@
+export {loadPage};
+
 import {dbRead, dbWrite} from './database';
 import {taskFactory} from './task';
-
-const backlogSwimlane = document.querySelector('#backlog');
-const openSwimlane = document.querySelector('#open');
-const closedSwimlane = document.querySelector('#closed');
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', function() {
@@ -15,16 +13,23 @@ cancelButton.addEventListener('click', function() {
     closeForm();
 });
 
-document.addEventListener('load', function() {
+function loadPage() {
     closeForm();
-    console.log("Rendering page...");
     renderPage();
-});
-
-function renderPage() {
-    dbRead();
 }
 
+function renderPage() {
+    dbRead().then(function(snapshot) {
+        for (const property in snapshot.val()) {
+            //console.log(snapshot.val()[property]);
+            renderTask(snapshot.val()[property]);
+        }
+    });
+}
+
+const backlogSwimlane = document.querySelector('#backlog');
+const openSwimlane = document.querySelector('#open');
+const closedSwimlane = document.querySelector('#closed');
 function renderTask(task) {
     let taskCard = document.createElement('div');
     taskCard.className = 'flexItem';
@@ -62,7 +67,17 @@ function renderTask(task) {
     summary.innerHTML = task.title;
     taskCard.appendChild(summary);
 
-    addButton.insertAdjacentElement('afterend', taskCard);
+    switch (task.status) {
+        case 'open':
+            addButton.insertAdjacentElement('afterend', taskCard);
+            break;
+        case 'inProgress':
+            openSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
+            break;
+        case 'closed':
+            closedSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
+            break;
+    }
 }
 
 function formatDate(date) {

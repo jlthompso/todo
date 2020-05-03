@@ -17,18 +17,14 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 let database = firebase.database();
-let uid = 'Anonymous'
+let uid = 'Anonymous';
 
 function configureDatabase(user) {
     uid = user;
 }
 
 function dbRead() {
-    console.log("Reading database...");
-    console.log(database.ref(`users/${uid}`).once('value'));
-    /*return database.once('value').then(function(snapshot) {
-        var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-    });*/     
+    return database.ref(`users/${uid}`).once('value');
 }
 
 function dbWrite(object) {
