@@ -1,19 +1,28 @@
-import {openForm, closeForm} from './form';
+import {dbRead, dbWrite} from './database';
+import {taskFactory} from './task';
 
 const backlogSwimlane = document.querySelector('#backlog');
 const openSwimlane = document.querySelector('#open');
 const closedSwimlane = document.querySelector('#closed');
-const addButton = document.querySelector('#add');
-const cancelButton = document.querySelector('#cancel');
 
-function initDOM() {
-    addButton.addEventListener('click', function() {
-        openForm();
-    });
-    
-    cancelButton.addEventListener('click', function() {
-        closeForm();
-    });
+const addButton = document.querySelector('#add');
+addButton.addEventListener('click', function() {
+    openForm();
+});
+
+const cancelButton = document.querySelector('#cancel');
+cancelButton.addEventListener('click', function() {
+    closeForm();
+});
+
+document.addEventListener('load', function() {
+    closeForm();
+    console.log("Rendering page...");
+    renderPage();
+});
+
+function renderPage() {
+    dbRead();
 }
 
 function renderTask(task) {
@@ -68,4 +77,38 @@ function formatDate(date) {
     return ret;
 }
 
-export {initDOM, renderTask};
+const newTaskForm = document.querySelector('#newTaskForm');
+newTaskForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Stop page refresh
+    let formName, formDate, formPriority, formNotes;
+    for (let i = 0; i < newTaskForm.length; i++) {
+        switch (newTaskForm[i].name) {
+            case 'formName':
+                formName = newTaskForm[i].value;
+                break;
+            case 'formDate':
+                formDate = newTaskForm[i].value;
+                break;
+            case 'formPriority':
+                formPriority = newTaskForm[i].value;
+                break;
+            case 'formNotes':
+                formNotes = newTaskForm[i].value;
+                break;
+        }
+    }
+    let task = taskFactory(formName, formDate, formPriority, formNotes);
+    if (dbWrite(task)) {
+        closeForm();
+        renderTask(task);
+    }
+});
+
+function openForm() {
+    document.querySelector('#formPopup').style.display = 'block';
+}
+  
+function closeForm() {
+    newTaskForm.reset(); // Clear fields
+    document.querySelector('#formPopup').style.display = 'none';
+}

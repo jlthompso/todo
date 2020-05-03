@@ -1,7 +1,6 @@
-import {initFirebase} from './database';
-import {initDOM} from './dom';
-import {initForm} from './form';
+import {configureDatabase} from './database';
+import {} from './dom'; // triggers initialization
 
-initFirebase();
-initDOM();
-initForm();
+let uid = "jthompso";
+
+configureDatabase(uid);

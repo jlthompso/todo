@@ -15,12 +15,20 @@ var firebaseConfig = {
     appId: "1:421000210131:web:ffa8d8d63ba3110c60d626"
 };
 
-let database;
-let uid = "jthompso";
+firebase.initializeApp(firebaseConfig);
+let database = firebase.database();
+let uid = 'Anonymous'
 
-function initFirebase() {
-    firebase.initializeApp(firebaseConfig);
-    database = firebase.database();
+function configureDatabase(user) {
+    uid = user;
+}
+
+function dbRead() {
+    console.log("Reading database...");
+    console.log(database.ref(`users/${uid}`).once('value'));
+    /*return database.once('value').then(function(snapshot) {
+        var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+    });*/     
 }
 
 function dbWrite(object) {
@@ -38,4 +46,4 @@ function dbWrite(object) {
     return ret;
 }
 
-export {initFirebase, dbWrite};
+export {configureDatabase, dbWrite, dbRead};
