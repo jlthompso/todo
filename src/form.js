@@ -1,3 +1,6 @@
+import {dbWrite} from './database';
+import {taskFactory} from './task';
+
 function initForm() {
     const newTaskForm = document.querySelector('#newTaskForm');
     newTaskForm.addEventListener('submit', function(e) {
@@ -19,9 +22,10 @@ function initForm() {
                     break;
             }
         }
-        console.log({formName, formDate, formPriority, formNotes});
         newTaskForm.reset(); // Clear fields
         closeForm();
+        let task = taskFactory(formName, formDate, formPriority, formNotes);
+        dbWrite(task);
     });
 }
 

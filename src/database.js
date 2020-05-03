@@ -15,9 +15,17 @@ var firebaseConfig = {
     appId: "1:421000210131:web:ffa8d8d63ba3110c60d626"
 };
 
+let database;
+let uid = "jthompso";
+
 function initFirebase() {
     firebase.initializeApp(firebaseConfig);
-    return firebase.database();
+    database = firebase.database();
 }
 
-export {initFirebase};
+function dbWrite(object) {
+    console.log(object);
+    database.ref(`users/${uid}`).push(object);
+}
+
+export {initFirebase, dbWrite};
