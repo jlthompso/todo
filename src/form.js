@@ -1,5 +1,6 @@
 import {dbWrite} from './database';
 import {taskFactory} from './task';
+import {renderTask} from './dom';
 
 function initForm() {
     const newTaskForm = document.querySelector('#newTaskForm');
@@ -22,10 +23,12 @@ function initForm() {
                     break;
             }
         }
-        newTaskForm.reset(); // Clear fields
-        closeForm();
         let task = taskFactory(formName, formDate, formPriority, formNotes);
-        dbWrite(task);
+        if (dbWrite(task)) {
+            newTaskForm.reset(); // Clear fields
+            closeForm();
+            renderTask(task);
+        }
     });
 }
 

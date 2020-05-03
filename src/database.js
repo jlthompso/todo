@@ -24,8 +24,18 @@ function initFirebase() {
 }
 
 function dbWrite(object) {
-    console.log(object);
-    database.ref(`users/${uid}`).push(object);
+    let ret = true;
+    database.ref(`users/${uid}`).push(object, function(error) {
+        if (error) {
+          // The write failed...
+          ret = true;
+        }
+        else {
+          // Data saved successfully!
+          ret = false;
+        }
+    });
+    return ret;
 }
 
 export {initFirebase, dbWrite};
