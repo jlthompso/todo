@@ -1,6 +1,6 @@
 export {loadPage};
 
-import {dbRead, dbWrite} from './database';
+import {dbRead, dbWrite, dbReadTask} from './database';
 import {taskFactory} from './task';
 
 const addButton = document.querySelector('#add');
@@ -21,8 +21,7 @@ function loadPage() {
 function renderPage() {
     dbRead().then(function(snapshot) {
         for (const property in snapshot.val()) {
-            //console.log(snapshot.val()[property]);
-            renderTask(snapshot.val()[property]);
+            renderTask(property, snapshot.val()[property]);
         }
     });
 }
@@ -30,9 +29,10 @@ function renderPage() {
 const backlogSwimlane = document.querySelector('#backlog');
 const openSwimlane = document.querySelector('#open');
 const closedSwimlane = document.querySelector('#closed');
-function renderTask(task) {
+function renderTask(key, task) {
     let taskCard = document.createElement('div');
     taskCard.className = 'flexItem';
+    taskCard.id = key;
 
     let date = document.createElement('div');
     date.className = 'taskDueDate';
@@ -78,6 +78,38 @@ function renderTask(task) {
             closedSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
             break;
     }
+
+    taskCard.addEventListener('click', function() {
+        openTaskDetails();
+
+        let taskDetailsName = document.querySelector('#taskDetailsName');
+        let taskDetailsDate = document.querySelector('#taskDetailsDate');
+        let taskDetailsPriority = document.querySelector('#taskDetailsPriority');
+        let taskDetailsNotes = document.querySelector('#taskDetailsNotes');
+        let taskDetailsStatus = document.querySelector('#taskDetailsStatus');
+
+        dbReadTask(this.id).then(function(snapshot) {
+            for (const property in snapshot.val()) {
+                switch (property) {
+                    case 'title':
+                        taskDetailsName.value = snapshot.val()[property];
+                        break;
+                    case 'status':
+                        taskDetailsStatus.value = snapshot.val()[property];
+                        break;
+                    case 'priority':
+                        taskDetailsPriority.value = snapshot.val()[property];
+                        break;
+                    case 'dueDate':
+                        taskDetailsDate.value = snapshot.val()[property];
+                        break;
+                    case 'description':
+                        taskDetailsNotes.value = snapshot.val()[property];
+                        break;
+                }
+            }
+        });
+    });
 }
 
 function formatDate(date) {
@@ -127,3 +159,16 @@ function closeForm() {
     newTaskForm.reset(); // Clear fields
     document.querySelector('#formPopup').style.display = 'none';
 }
+
+function openTaskDetails() {
+    document.querySelector('#taskDetailsPopup').style.display = 'block';
+}
+
+function closeTaskDetails() {
+    document.querySelector('#taskDetailsPopup').style.display = 'none';
+}
+
+const closeTaskDetailsButton = document.querySelector('#close');
+closeTaskDetailsButton.addEventListener('click', function() {
+    closeTaskDetails();
+});

@@ -36,14 +36,6 @@
     background-color: #E6D4FF;
 }
 
-#add {
-    border-style: dashed;
-    height: 50px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
 .flexItem {
     margin: 1.5px 0;
     background-color: #F5EDFF;
@@ -54,6 +46,14 @@
     position: relative; /* Allows absolute positioning of child elements */
     padding: 3px;
     opacity: 0.8;
+}
+
+#add {
+    border-style: dashed;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .flexItem .taskPriority {

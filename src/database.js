@@ -1,3 +1,5 @@
+export {configureDatabase, dbWrite, dbRead, dbReadTask};
+
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
 
@@ -27,6 +29,10 @@ function dbRead() {
     return database.ref(`users/${uid}`).once('value');
 }
 
+function dbReadTask(key) {
+    return database.ref(`users/${uid}/${key}`).once('value');
+}
+
 function dbWrite(object) {
     let ret = true;
     database.ref(`users/${uid}`).push(object, function(error) {
@@ -41,5 +47,3 @@ function dbWrite(object) {
     });
     return ret;
 }
-
-export {configureDatabase, dbWrite, dbRead};

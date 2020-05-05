@@ -41,10 +41,46 @@
 
                 <label for="formNotes"><b>Description</b></label>
                 <br>
-                <textarea name="formNotes" placeholder="Optional notes..."></textarea>
+                <textarea id="formNotes" name="formNotes" placeholder="Optional notes..."></textarea>
           
                 <button type="submit" id="create">CREATE</button>
                 <button type="reset" id="cancel">CANCEL</button>
+            </form>
+        </div>
+        <div id="taskDetailsPopup">
+            <form id="taskDetailsForm" autocomplete="off">
+                <label for="taskDetailsName"><b>Summary</b></label>
+                <input type="text" id="taskDetailsName" name="taskDetailsName" placeholder="Enter task name" required>
+
+                <label for="taskDetailsStatus"><b>Status:</b></label>
+                <select id="taskDetailsStatus" name="taskDetailsStatus" required>
+                    <option value="open">Open</option>
+                    <option value="inProgress">In Progress</option>
+                    <option value="closed" selected>Closed</option>
+                </select>
+                <br>
+
+                <label for="taskDetailsDate"><b>Due Date:</b></label>
+                <input type="date" id="taskDetailsDate" name="taskDetailsDate">
+                <br>
+
+                <label for="taskDetailsPriority"><b>Priority:</b></label>
+                <select id="taskDetailsPriority" name="taskDetailsPriority" required>
+                    <option value="highest">Highest</option>
+                    <option value="high">High</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="low">Low</option>
+                    <option value="lowest">Lowest</option>
+                </select>
+                <br>
+
+                <label for="taskDetailsNotes"><b>Description</b></label>
+                <br>
+                <textarea id="taskDetailsNotes" name="taskDetailsNotes" placeholder="Optional notes..."></textarea>
+          
+                <button type="submit" id="update">UPDATE TASK</button>
+                <button type="reset" id="delete">DELETE TASK</button>
+                <button type="reset" id="close">X</button>
             </form>
         </div>
         <script src="./scripts/main.js"></script>
