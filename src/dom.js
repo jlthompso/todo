@@ -145,9 +145,10 @@ newTaskForm.addEventListener('submit', function(e) {
         }
     }
     let task = taskFactory(formName, formDate, formPriority, formNotes);
-    if (dbWrite(task)) {
+    let key = dbWrite(task);
+    if (key) {
         closeForm();
-        renderTask(task);
+        renderTask(key, task);
     }
 });
 

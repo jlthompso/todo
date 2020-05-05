@@ -34,16 +34,11 @@ function dbReadTask(key) {
 }
 
 function dbWrite(object) {
-    let ret = true;
-    database.ref(`users/${uid}`).push(object, function(error) {
-        if (error) {
-          // The write failed...
-          ret = true;
-        }
-        else {
-          // Data saved successfully!
-          ret = false;
-        }
-    });
+    let ret = false;
+    let key = database.ref(`users/${uid}`).push(object).key;
+    console.log(key);
+
+    if (key) ret = key;
+
     return ret;
 }
