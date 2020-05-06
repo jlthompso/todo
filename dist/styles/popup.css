@@ -8,6 +8,10 @@
   z-index: 9;
 }
 
+#taskKey {
+  display: none;
+}
+
 /* Add styles to the form container */
 form {
   max-width: 500px;

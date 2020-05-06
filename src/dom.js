@@ -87,6 +87,8 @@ function renderTask(key, task) {
         let taskDetailsPriority = document.querySelector('#taskDetailsPriority');
         let taskDetailsNotes = document.querySelector('#taskDetailsNotes');
         let taskDetailsStatus = document.querySelector('#taskDetailsStatus');
+        let taskKey = document.querySelector('#taskKey');
+        taskKey.value = this.id;
 
         dbReadTask(this.id).then(function(snapshot) {
             for (const property in snapshot.val()) {
@@ -150,6 +152,41 @@ newTaskForm.addEventListener('submit', function(e) {
         closeForm();
         renderTask(key, task);
     }
+});
+
+const taskDetailsForm = document.querySelector('#taskDetailsForm');
+taskDetailsForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Stop page refresh
+    let taskDetailsName, taskDetailsDate, taskDetailsPriority, taskDetailsNotes, taskDetailsStatus, taskKey;
+    for (let i = 0; i < taskDetailsForm.length; i++) {
+        switch (taskDetailsForm[i].name) {
+            case 'taskDetailsName':
+                taskDetailsName = taskDetailsForm[i].value;
+                break;
+            case 'taskDetailsDate':
+                taskDetailsDate = taskDetailsForm[i].value;
+                break;
+            case 'taskDetailsPriority':
+                taskDetailsPriority = taskDetailsForm[i].value;
+                break;
+            case 'taskDetailsNotes':
+                taskDetailsNotes = taskDetailsForm[i].value;
+                break;
+            case 'taskDetailsStatus':
+                taskDetailsStatus = taskDetailsForm[i].value;
+                break;
+            case 'taskKey':
+                taskKey = taskDetailsForm[i].value;
+                break;
+        }
+    }
+    console.log(taskKey);
+    /*let task = taskFactory(formName, formDate, formPriority, formNotes);
+    let key = dbWrite(task);
+    if (key) {
+        closeForm();
+        renderTask(key, task);
+    }*/
 });
 
 function openForm() {

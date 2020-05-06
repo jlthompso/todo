@@ -36,7 +36,6 @@ function dbReadTask(key) {
 function dbWrite(object) {
     let ret = false;
     let key = database.ref(`users/${uid}`).push(object).key;
-    console.log(key);
 
     if (key) ret = key;
 
