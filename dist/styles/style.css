@@ -15,6 +15,9 @@
     margin: 0 1px;
     border-radius: 1rem;
     padding: 0 3px 50px;
+    border-style: none;
+    border-width: 3px;
+    border-color: black;
 }
 
 .heading {
@@ -77,3 +80,9 @@
 ::-moz-focus-inner {
     border:0;
 }
+
+/* Prevent the text contents of draggable elements from being selectable. */
+[draggable] {
+    -moz-user-select: none;
+    user-select: none;
+  }

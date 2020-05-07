@@ -1,6 +1,6 @@
 export {loadPage};
 
-import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete} from './database';
+import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete, updateStatus} from './database';
 import {taskFactory} from './task';
 
 const addButton = document.querySelector('#add');
@@ -27,12 +27,83 @@ function renderPage() {
 }
 
 const backlogSwimlane = document.querySelector('#backlog');
+backlogSwimlane.addEventListener('dragover', function(e) {
+    allowDrop(e, this);
+});
+backlogSwimlane.addEventListener('drop', function(e) {
+    drop(e, this);
+});
+backlogSwimlane.addEventListener('dragleave', function() {
+    leave(this);
+});
+
 const openSwimlane = document.querySelector('#open');
+openSwimlane.addEventListener('dragover', function(e) {
+    allowDrop(e, this);
+    this.style.borderStyle = 'dashed';
+});
+openSwimlane.addEventListener('drop', function(e) {
+    drop(e, this);
+});
+openSwimlane.addEventListener('dragleave', function() {
+    leave(this);
+});
+
 const closedSwimlane = document.querySelector('#closed');
+closedSwimlane.addEventListener('dragover', function(e) {
+    allowDrop(e, this);
+    this.style.borderStyle = 'dashed';
+});
+closedSwimlane.addEventListener('drop', function(e) {
+    drop(e, this);
+});
+closedSwimlane.addEventListener('dragleave', function() {
+    leave(this);
+});
+
+function allowDrop(event, element) {
+    element.style.borderStyle = 'dashed';
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+}
+
+function leave(element) {
+    element.style.borderStyle = 'none';
+}
+
+function drop(event, element) {
+    event.preventDefault();
+    element.style.borderStyle = 'none';
+    let data = event.dataTransfer.getData('text');
+    let taskCard = document.getElementById(data);
+
+    let key = taskCard.id;
+    let status = element.id;
+    switch (status) {
+        case 'backlog':
+            addButton.insertAdjacentElement('afterend', taskCard);
+            updateStatus(key, 'open');
+            break;
+        case 'open':
+            openSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
+            updateStatus(key, 'inProgress');
+            break;
+        case 'closed':
+            closedSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
+            updateStatus(key, 'closed');
+            break;
+    }
+}
+
 function renderTask(key, task) {
     let taskCard = document.createElement('div');
     taskCard.className = 'flexItem';
     taskCard.id = key;
+    taskCard.draggable = 'true';
+
+    taskCard.addEventListener('dragstart', function(e) {
+        e.dataTransfer.setData('text', e.target.id);
+    });
 
     let date = document.createElement('div');
     date.className = 'taskDueDate';

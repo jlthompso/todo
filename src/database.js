@@ -1,4 +1,4 @@
-export {configureDatabase, dbWrite, dbRead, dbReadTask, dbUpdate, dbDelete};
+export {configureDatabase, dbWrite, dbRead, dbReadTask, dbUpdate, dbDelete, updateStatus};
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
@@ -49,4 +49,8 @@ function dbUpdate(object, key) {
 
 function dbDelete(key) {
     database.ref(`users/${uid}/${key}`).set(null);
+}
+
+function updateStatus(key, status) {
+    database.ref(`users/${uid}/${key}`).child('status').set(status);
 }
