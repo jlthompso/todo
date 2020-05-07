@@ -1,4 +1,4 @@
-export {configureDatabase, dbWrite, dbRead, dbReadTask};
+export {configureDatabase, dbWrite, dbRead, dbReadTask, dbUpdate, dbDelete};
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
@@ -35,9 +35,18 @@ function dbReadTask(key) {
 
 function dbWrite(object) {
     let ret = false;
+
     let key = database.ref(`users/${uid}`).push(object).key;
 
-    if (key) ret = key;
+    if (key !== undefined) ret = key;
 
     return ret;
+}
+
+function dbUpdate(object, key) {
+    database.ref(`users/${uid}/${key}`).set(object);
+}
+
+function dbDelete(key) {
+    database.ref(`users/${uid}/${key}`).set(null);
 }

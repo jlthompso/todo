@@ -1,6 +1,6 @@
 export {loadPage};
 
-import {dbRead, dbWrite, dbReadTask} from './database';
+import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete} from './database';
 import {taskFactory} from './task';
 
 const addButton = document.querySelector('#add');
@@ -157,7 +157,8 @@ newTaskForm.addEventListener('submit', function(e) {
 const taskDetailsForm = document.querySelector('#taskDetailsForm');
 taskDetailsForm.addEventListener('submit', function(e) {
     e.preventDefault(); // Stop page refresh
-    let taskDetailsName, taskDetailsDate, taskDetailsPriority, taskDetailsNotes, taskDetailsStatus, taskKey;
+    let taskDetailsName, taskDetailsDate, taskDetailsPriority, taskDetailsNotes, taskDetailsStatus, key;
+
     for (let i = 0; i < taskDetailsForm.length; i++) {
         switch (taskDetailsForm[i].name) {
             case 'taskDetailsName':
@@ -176,17 +177,25 @@ taskDetailsForm.addEventListener('submit', function(e) {
                 taskDetailsStatus = taskDetailsForm[i].value;
                 break;
             case 'taskKey':
-                taskKey = taskDetailsForm[i].value;
+                key = taskDetailsForm[i].value;
                 break;
         }
     }
-    console.log(taskKey);
-    /*let task = taskFactory(formName, formDate, formPriority, formNotes);
-    let key = dbWrite(task);
-    if (key) {
-        closeForm();
+
+    if (e.explicitOriginalTarget.id === 'delete') {
+        taskDetailsForm.reset();
+        dbDelete(key);
+        closeTaskDetails();
+        hideTask(key);
+    }
+    else {
+        let task = taskFactory(taskDetailsName, taskDetailsDate, taskDetailsPriority, taskDetailsNotes);
+        task.status = taskDetailsStatus;
+        dbUpdate(task, key);
+        closeTaskDetails();
+        hideTask(key);
         renderTask(key, task);
-    }*/
+    }
 });
 
 function openForm() {
@@ -210,3 +219,8 @@ const closeTaskDetailsButton = document.querySelector('#close');
 closeTaskDetailsButton.addEventListener('click', function() {
     closeTaskDetails();
 });
+
+function hideTask(key) {
+    let task = document.querySelector(`#${key}`)
+    task.remove();
+}
