@@ -34,7 +34,7 @@ function dbReadTask(key) {
 }
 
 function dbWrite(object) {
-    database.ref(`users/${uid}`).push(object);
+    return database.ref(`users/${uid}`).push(object).key;
 }
 
 function dbUpdate(object, key) {

@@ -218,7 +218,7 @@ newTaskForm.addEventListener('submit', function(e) {
         }
     }
     let task = taskFactory(formName, formDate, formPriority, formNotes);
-    dbWrite(task);
+    let key = dbWrite(task);
     closeForm();
     renderTask(key, task);
 });
