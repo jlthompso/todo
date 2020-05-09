@@ -1,4 +1,4 @@
-export {configureDatabase, dbWrite, dbRead, dbReadTask, dbUpdate, dbDelete, updateStatus};
+export {configureDatabase, dbWrite, dbRead, dbReadTask, dbUpdate, dbDelete, updateStatus, dbCreateProject};
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from "firebase/app";
@@ -34,13 +34,7 @@ function dbReadTask(key) {
 }
 
 function dbWrite(object) {
-    let ret = false;
-
-    let key = database.ref(`users/${uid}`).push(object).key;
-
-    if (key !== undefined) ret = key;
-
-    return ret;
+    database.ref(`users/${uid}`).push(object);
 }
 
 function dbUpdate(object, key) {
@@ -53,4 +47,8 @@ function dbDelete(key) {
 
 function updateStatus(key, status) {
     database.ref(`users/${uid}/${key}`).child('status').set(status);
+}
+
+function dbCreateProject(name) {
+    database.ref(`users/${uid}`).push(name);
 }

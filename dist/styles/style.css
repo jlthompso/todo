@@ -5,6 +5,45 @@
 
 #container {
     display: flex;
+    position: relative;
+    top: 45px;
+}
+
+#topBar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background-color: #F5EDFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#topBar input, #topBar select {
+    min-width: 200px;
+    background: #f1f1f1;
+    font-size: 1rem;
+    margin: 0 5px;
+    height: 35px;
+}
+
+#topBar form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#topBar button {
+    margin: 0 5px 0 0;
+    height: 35px;
+}
+
+#topBar input:focus, #topBar select:focus {
+    background-color: #ddd;
 }
 
 .swimlane {

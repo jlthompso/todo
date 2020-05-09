@@ -13,14 +13,14 @@
 }
 
 /* Add styles to the form container */
-form {
+.taskForm {
   max-width: 500px;
   padding: 10px;
   background-color: white;
 }
 
 /* Full-width input fields */
-input[type=text], textarea {
+.taskForm input[type=text], .taskForm textarea {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -29,7 +29,7 @@ input[type=text], textarea {
   font-size: 1rem;
 }
 
-input[type=date], select {
+.taskForm input[type=date], .taskForm select {
     padding: 5px;
     margin: 5px 0 22px 0;
     border: none;
@@ -38,7 +38,7 @@ input[type=date], select {
 }
 
 /* When the inputs get focus, do something */
-input[type=text]:focus, textarea:focus {
+.taskForm form input[type=text]:focus, .taskForm textarea:focus {
   background-color: #ddd;
   outline: none;
 }

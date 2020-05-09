@@ -7,6 +7,17 @@
         <link href="./styles/popup.css" rel="stylesheet">
     </head>
     <body>
+        <div id="topBar">
+            <form id="newProjectForm" autocomplete="off">
+                <input type="text" placeholder="New Project Name" name="newProject">
+                <button type="submit" id="addProject">Add Project</button>
+            </form>
+            <select id="project" name="project" required>
+                <option value="Default">Default</option>
+                <option value="To Do List">To Do List</option>
+            </select>
+            <button id="deleteProject">Delete Project</button>
+        </div>
         <div id="container">
             <div id="backlog" class="swimlane">
                 <div class="heading">TO DO</div>
@@ -20,7 +31,7 @@
             </div>
         </div>
         <div id="formPopup">
-            <form id="newTaskForm" autocomplete="off">
+            <form id="newTaskForm" autocomplete="off" class="taskForm">
                 <h1>New Task</h1>
                 <label for="formName"><b>Summary</b></label>
                 <input type="text" placeholder="Enter task name" name="formName" required>
@@ -48,7 +59,7 @@
             </form>
         </div>
         <div id="taskDetailsPopup">
-            <form id="taskDetailsForm" autocomplete="off">
+            <form id="taskDetailsForm" autocomplete="off" class="taskForm">
                 <input type="text" id="taskKey" name="taskKey">
 
                 <label for="taskDetailsName"><b>Summary</b></label>

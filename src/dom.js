@@ -1,6 +1,6 @@
 export {loadPage};
 
-import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete, updateStatus} from './database';
+import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete, updateStatus, dbCreateProject} from './database';
 import {taskFactory} from './task';
 
 const addButton = document.querySelector('#add');
@@ -218,11 +218,9 @@ newTaskForm.addEventListener('submit', function(e) {
         }
     }
     let task = taskFactory(formName, formDate, formPriority, formNotes);
-    let key = dbWrite(task);
-    if (key) {
-        closeForm();
-        renderTask(key, task);
-    }
+    dbWrite(task);
+    closeForm();
+    renderTask(key, task);
 });
 
 const taskDetailsForm = document.querySelector('#taskDetailsForm');
@@ -253,7 +251,7 @@ taskDetailsForm.addEventListener('submit', function(e) {
         }
     }
 
-    if (e.explicitOriginalTarget.id === 'delete') {
+    if (e.submitter.id === 'delete') {
         taskDetailsForm.reset();
         dbDelete(key);
         closeTaskDetails();
@@ -295,3 +293,8 @@ function hideTask(key) {
     let task = document.querySelector(`#${key}`)
     task.remove();
 }
+
+const deleteProjectButton = document.querySelector('#deleteProject');
+deleteProjectButton.addEventListener('click', function() {
+    alert("Are you sure you want to delete project?");
+});
