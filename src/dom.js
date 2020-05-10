@@ -23,17 +23,26 @@ function loadPage() {
 function renderPage() {
     dbRead().then(function(snapshot) {
         for (const property in snapshot.val()) {
-            let option = document.createElement('option');
-            option.text = property;
-            option.value = property;
-            document.querySelector('#project').appendChild(option);
+            if (!document.getElementById(property)) {
+                let option = document.createElement('option');
+                option.text = property;
+                option.value = property;
+                option.id = property;
+                document.querySelector('#project').appendChild(option);
+            }
+        }
+    });
+
+    let taskCards = document.querySelectorAll('.flexItem');
+    taskCards.forEach(element => {
+        if (element.draggable) {
+            element.remove();
         }
     });
 
     dbRead(project).then(function(snapshot) {
         for (const property in snapshot.val()) {
-            //renderTask(property, snapshot.val()[property]);
-            console.log(property);
+            renderTask(property, snapshot.val()[property]);
         }
     });
 }
@@ -330,4 +339,10 @@ newProjectForm.addEventListener('submit', function(e) {
             }
         });
     }
+});
+
+const projectSelect = document.querySelector('#project');
+projectSelect.addEventListener('change', function() {
+    project = this.value;
+    renderPage(project);
 });
