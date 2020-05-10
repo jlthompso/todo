@@ -25,8 +25,17 @@ function configureDatabase(user) {
     uid = user;
 }
 
-function dbRead() {
-    return database.ref(`users/${uid}`).once('value');
+function dbRead(project) {
+    let ret;
+
+    if (project === undefined) {
+        ret = database.ref(`users/${uid}`).once('value');
+    }
+    else {
+        ret = database.ref(`users/${uid}/${project}`).once('value');
+    }
+
+    return ret;
 }
 
 function dbReadTask(key) {
@@ -50,5 +59,5 @@ function updateStatus(key, status) {
 }
 
 function dbCreateProject(name) {
-    database.ref(`users/${uid}`).push(name);
+    database.ref(`users/${uid}/${name}`).set(false);
 }

@@ -3,6 +3,8 @@ export {loadPage};
 import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete, updateStatus, dbCreateProject} from './database';
 import {taskFactory} from './task';
 
+let project = 'default';
+
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', function() {
     openForm();
@@ -21,7 +23,17 @@ function loadPage() {
 function renderPage() {
     dbRead().then(function(snapshot) {
         for (const property in snapshot.val()) {
-            renderTask(property, snapshot.val()[property]);
+            let option = document.createElement('option');
+            option.text = property;
+            option.value = property;
+            document.querySelector('#project').appendChild(option);
+        }
+    });
+
+    dbRead(project).then(function(snapshot) {
+        for (const property in snapshot.val()) {
+            //renderTask(property, snapshot.val()[property]);
+            console.log(property);
         }
     });
 }
@@ -297,4 +309,25 @@ function hideTask(key) {
 const deleteProjectButton = document.querySelector('#deleteProject');
 deleteProjectButton.addEventListener('click', function() {
     alert("Are you sure you want to delete project?");
+});
+
+const newProjectForm = document.querySelector('#newProjectForm');
+newProjectForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Stop page refresh
+
+    name = newProjectForm.newProject.value;
+
+    if (name !== undefined) {
+        dbRead(name).then(function(snapshot) {
+            if (!snapshot.exists()) {
+                dbCreateProject(name);
+                project = name;
+                newProjectForm.reset();
+                renderPage();
+            }
+            else {
+                alert(`Project "${name}" already exists.`);
+            }
+        });
+    }
 });
