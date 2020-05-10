@@ -103,15 +103,15 @@ function drop(event, element) {
     switch (status) {
         case 'backlog':
             addButton.insertAdjacentElement('afterend', taskCard);
-            updateStatus(key, 'open');
+            updateStatus(project, key, 'open');
             break;
         case 'open':
             openSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
-            updateStatus(key, 'inProgress');
+            updateStatus(project, key, 'inProgress');
             break;
         case 'closed':
             closedSwimlane.firstElementChild.insertAdjacentElement('afterend', taskCard);
-            updateStatus(key, 'closed');
+            updateStatus(project, key, 'closed');
             break;
     }
 }
@@ -182,7 +182,7 @@ function renderTask(key, task) {
         let taskKey = document.querySelector('#taskKey');
         taskKey.value = this.id;
 
-        dbReadTask(this.id).then(function(snapshot) {
+        dbReadTask(project, this.id).then(function(snapshot) {
             for (const property in snapshot.val()) {
                 switch (property) {
                     case 'title':
@@ -239,7 +239,7 @@ newTaskForm.addEventListener('submit', function(e) {
         }
     }
     let task = taskFactory(formName, formDate, formPriority, formNotes);
-    let key = dbWrite(task);
+    let key = dbWrite(project, task);
     closeForm();
     renderTask(key, task);
 });
@@ -274,14 +274,14 @@ taskDetailsForm.addEventListener('submit', function(e) {
 
     if (e.submitter.id === 'delete') {
         taskDetailsForm.reset();
-        dbDelete(key);
+        dbDelete(project, key);
         closeTaskDetails();
         hideTask(key);
     }
     else {
         let task = taskFactory(taskDetailsName, taskDetailsDate, taskDetailsPriority, taskDetailsNotes);
         task.status = taskDetailsStatus;
-        dbUpdate(task, key);
+        dbUpdate(project, key, task);
         closeTaskDetails();
         hideTask(key);
         renderTask(key, task);

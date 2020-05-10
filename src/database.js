@@ -38,24 +38,24 @@ function dbRead(project) {
     return ret;
 }
 
-function dbReadTask(key) {
-    return database.ref(`users/${uid}/${key}`).once('value');
+function dbReadTask(project, key) {
+    return database.ref(`users/${uid}/${project}/${key}`).once('value');
 }
 
-function dbWrite(object) {
-    return database.ref(`users/${uid}`).push(object).key;
+function dbWrite(project, object) {
+    return database.ref(`users/${uid}/${project}`).push(object).key;
 }
 
-function dbUpdate(object, key) {
-    database.ref(`users/${uid}/${key}`).set(object);
+function dbUpdate(project, key, object) {
+    database.ref(`users/${uid}/${project}/${key}`).set(object);
 }
 
-function dbDelete(key) {
-    database.ref(`users/${uid}/${key}`).set(null);
+function dbDelete(project, key) {
+    database.ref(`users/${uid}/${project}/${key}`).set(null);
 }
 
-function updateStatus(key, status) {
-    database.ref(`users/${uid}/${key}`).child('status').set(status);
+function updateStatus(project, key, status) {
+    database.ref(`users/${uid}/${project}/${key}`).child('status').set(status);
 }
 
 function dbCreateProject(name) {
