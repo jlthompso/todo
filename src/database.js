@@ -51,7 +51,12 @@ function dbUpdate(project, key, object) {
 }
 
 function dbDelete(project, key) {
-    database.ref(`users/${uid}/${project}/${key}`).set(null);
+    if (key === undefined) {
+        database.ref(`users/${uid}/${project}`).set(null);
+    }
+    else {
+        database.ref(`users/${uid}/${project}/${key}`).set(null);
+    }
 }
 
 function updateStatus(project, key, status) {

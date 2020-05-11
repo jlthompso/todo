@@ -3,7 +3,7 @@ export {loadPage};
 import {dbRead, dbWrite, dbReadTask, dbUpdate, dbDelete, updateStatus, dbCreateProject} from './database';
 import {taskFactory} from './task';
 
-let project = 'default';
+let project = 'Default';
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', function() {
@@ -31,6 +31,7 @@ function renderPage() {
                 document.querySelector('#project').appendChild(option);
             }
         }
+        document.getElementById(project).selected = true;
     });
 
     let taskCards = document.querySelectorAll('.flexItem');
@@ -317,7 +318,17 @@ function hideTask(key) {
 
 const deleteProjectButton = document.querySelector('#deleteProject');
 deleteProjectButton.addEventListener('click', function() {
-    alert("Are you sure you want to delete project?");
+    if (project === 'Default') {
+        alert("Can't delete default project.");
+    }
+    else {
+        if (confirm(`Project "${project}" and any associated tasks will be deleted.`)) {
+            dbDelete(project);
+            document.getElementById(project).remove();
+            project = 'Default';
+            renderPage();
+        }
+    }
 });
 
 const newProjectForm = document.querySelector('#newProjectForm');
