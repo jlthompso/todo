@@ -22,6 +22,17 @@
     left: 0;
 }
 
+#firebaseui-auth-container {
+    position: fixed;
+    top: 15%;
+    left: 15%;
+    border: 3px solid #f1f1f1;
+    background-color: white;
+    z-index: 9;
+    padding: 20px;
+    max-width: 600px;
+}
+
 #topBar input, #topBar select {
     min-width: 200px;
     background: #f1f1f1;
